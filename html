@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teen Patti - Fun Mode</title>
+<style>
+body { background: #0a3d0a; color: white; font-family: sans-serif; text-align: center; }
+.card { display:inline-block; background:white; color:black; width:60px; height:90px; margin:5px; line-height:90px; border-radius:8px; font-weight:bold; font-size:20px; }
+.player { border:2px solid yellow; padding:10px; margin:15px; border-radius:10px; }
+button { padding:12px 25px; font-size:18px; background:gold; border:none; border-radius:8px; cursor:pointer; }
+</style>
+</head>
+<body>
+<h1>Teen Patti - Virtual (No Real Money)</h1>
+<p>Free Chips: <span id="chips">10000</span></p>
+<button onclick="dealCards()">Nava Patta Vanto</button>
+<div id="table"></div>
+<h2 id="winner"></h2>
+
+<script>
+const suits = ['♠','♥','♦','♣'];
+const values = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+
+function shuffleDeck() {
+  let deck = [];
+  for(let s of suits) for(let v of values) deck.push(v+s);
+  return deck.sort(()=>Math.random()-0.5);
+}
+
+function dealCards(){
+  let deck = shuffleDeck();
+  let table = document.getElementById('table');
+  table.innerHTML = '';
+  let players = [];
+  for(let i=0;i<3;i++){
+    let hand = [deck.pop(), deck.pop(), deck.pop()];
+    players.push(hand);
+    let div = document.createElement('div');
+    div.className = 'player';
+    div.innerHTML = `<h3>Player ${i+1}</h3>` + hand.map(c=>`<div class="card">${c}</div>`).join('');
+    table.appendChild(div);
+  }
+  // Simple winner logic - High card for demo
+  document.getElementById('winner').innerText = "Game Ready - Trail > Pure Sequence > Sequence > Color > Pair > High Card (Full logic add karvu padse)";
+}
+
+// Full hand check logic ahi add thay - Trail, Sequence etc.
+dealCards();
+</script>
+</body>
+</html>￼Enter
